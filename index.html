@@ -3,289 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能投資羅盤 - QA 技術小考</title>
+    <title>智能投資羅盤 - QA 技術小考 (50題完整版)</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #1c1e21;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-        }
-        h1 {
-            color: #1877f2;
-            text-align: center;
-            border-bottom: 2px solid #1877f2;
-            padding-bottom: 10px;
-        }
-        .quiz-container {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .question-block {
-            margin-bottom: 25px;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            transition: border-color 0.3s;
-        }
-        .question-block.correct {
-            border-color: #31a24c;
-            background-color: #f0f9f2;
-        }
-        .question-block.incorrect {
-            border-color: #e02c4d;
-            background-color: #fdf2f4;
-        }
-        .question-text {
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-        .options label {
-            display: block;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #f0f2f5;
-            transition: background-color 0.2s;
-        }
-        .options label:hover {
-            background-color: #e4e6eb;
-        }
-        .options input[type="radio"] {
-            margin-right: 10px;
-        }
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        #check-button {
-            background-color: #1877f2;
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.1em;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        #check-button:hover {
-            background-color: #166fe5;
-        }
-        #results {
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        .explanation {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            font-size: 0.95em;
-        }
-        .explanation strong {
-            color: #31a24c;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f0f2f5; color: #1c1e21; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
+        h1 { color: #1877f2; text-align: center; border-bottom: 2px solid #1877f2; padding-bottom: 10px; }
+        .quiz-container { background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .question-block { margin-bottom: 25px; padding: 15px; border-radius: 6px; border: 1px solid #ddd; transition: all 0.3s; }
+        .question-block.correct { border-color: #31a24c; background-color: #f0f9f2; }
+        .question-block.incorrect { border-color: #e02c4d; background-color: #fdf2f4; }
+        .question-text { font-weight: 600; margin-bottom: 15px; font-size: 1.1em; }
+        .options label { display: block; margin-bottom: 10px; padding: 10px; border-radius: 5px; cursor: pointer; background-color: #f0f2f5; transition: background-color 0.2s; }
+        .options label:hover { background-color: #e4e6eb; }
+        .options input { margin-right: 10px; }
+        .button-container { text-align: center; margin-top: 20px; }
+        #check-button { background-color: #1877f2; color: #fff; border: none; padding: 12px 30px; font-size: 1.1em; border-radius: 6px; cursor: pointer; transition: background-color 0.3s; }
+        #check-button:hover { background-color: #166fe5; }
+        #results { text-align: center; font-size: 1.5em; font-weight: bold; margin: 20px 0; }
+        .explanation { margin-top: 15px; padding: 10px; background-color: #e9ebee; border-left: 4px solid #1877f2; border-radius: 5px; font-size: 0.95em; display: none; }
+        .explanation strong { color: #31a24c; }
+        .question-block.correct .explanation, .question-block.incorrect .explanation { display: block; }
     </style>
 </head>
 <body>
 
-    <h1>智能投資羅盤 - QA 技術小考</h1>
+    <h1>智能投資羅盤 - QA 技術小考 (50題完整版)</h1>
     <div class="quiz-container">
         <p>請回答以下關於專案技術細節的問題。完成後點擊「批改答案」按鈕查看結果與詳解。</p>
-        
         <div id="quiz-form"></div>
-
         <div class="button-container">
             <button id="check-button">批改答案</button>
         </div>
-        
         <div id="results"></div>
-        <div id="explanations"></div>
     </div>
 
 <script>
     const quizData = [
-        // 在這裡貼上上面提供的15個問題的JSON數據
-        {
-            question: "1. 我們的後端採用 Flask 框架而非 Django，主要考量是什麼？",
-            options: [
-                "A. Flask 的安全性遠高於 Django。",
-                "B. Flask 內建了比 Django 更強大的機器學習函式庫。",
-                "C. 系統以 API 為核心，Flask 輕量、靈活的特性更適合快速開發與部署 API 服務。",
-                "D. Flask 對資料庫的支援種類比 Django 更多。"
-            ],
-            answer: 2,
-            explanation: "<strong>正確答案：C</strong>。我們的系統是一個以API為主的單頁應用(SPA)，Flask的輕量和靈活性讓我們能專注於核心演算法的整合與API開發，而無需引入Django龐大的內建功能。"
-        },
-        {
-            question: "2. 我們使用 Cloudflare Tunnel 進行部署，它解決了哪個核心安全問題？",
-            options: [
-                "A. 防止資料庫被 SQL Injection 攻擊。",
-                "B. 無需在伺服器防火牆上開放任何入站端口，杜絕了針對 IP 的直接攻擊。",
-                "C. 自動壓縮前端的 JavaScript 和 CSS 檔案。",
-                "D. 確保 Python 程式碼不會被反編譯。"
-            ],
-            answer: 1,
-            explanation: "<strong>正確答案：B</strong>。Cloudflare Tunnel 建立了一個從本地伺服器到Cloudflare的出站連接，這意味著伺服器本身無需暴露在公網上，從根本上避免了針對伺服器IP的直接網路攻擊。"
-        },
-        {
-            question: "3. 處理耗時的「策略訓練」任務時，我們採用了非同步任務佇列架構。這個架構如何改善使用者體驗？",
-            options: [
-                "A. 讓訓練過程的計算速度變得更快。",
-                "B. 後端立即回應「任務已提交」，並在背景執行運算，避免前端頁面卡死或請求超時。",
-                "C. 減少了資料庫的讀寫次數。",
-                "D. 可以讓多個使用者同時訓練同一支股票。"
-            ],
-            answer: 1,
-            explanation: "<strong>正確答案：B</strong>。核心優勢在於「非同步處理」。Web伺服器接收到請求後，將任務放入佇列就立刻回應用戶，然後由獨立的背景Worker執行計算。這確保了使用者介面(UI)始終流暢且不會因等待而超時。"
-        },
-        {
-            question: "4. `utils.py` 在我們的專案中扮演了什麼關鍵角色？",
-            options: [
-                "A. 儲存所有使用者的帳號密碼。",
-                "B. 專門用來繪製 Plotly 互動圖表。",
-                "C. 作為一個輔助工具模組，提供了資料庫連接、績效指標計算等可重用的核心函式。",
-                "D. 負責管理 Flask 伺服器的啟動與關閉。"
-            ],
-            answer: 2,
-            explanation: "<strong>正確答案：C</strong>。`utils.py` 是一個典型的工具模組，它將專案中多處需要用到的通用功能（如資料庫操作、標準化的績效計算）封裝起來，提高了程式碼的可重用性和可維護性。"
-        },
-        {
-            question: "5. 相較於傳統單目標遺傳演算法，NSGA-II 在我們專案中的最大優勢是什麼？",
-            options: [
-                "A. 它的運算速度比傳統 GA 快數倍。",
-                "B. 它能保證找到在未來市場中必定獲利的策略。",
-                "C. 它的演算法原理比傳統 GA 更簡單直觀。",
-                "D. 能夠同時優化多個衝突的目標(如報酬率與風險)，並找出一個包含多種權衡解的「帕累托前沿」。"
-            ],
-            answer: 3,
-            explanation: "<strong>正確答案：D</strong>。投資本身就是多目標的權衡。NSGA-II的核心優勢在於它不只找一個解，而是找出一組在不同目標（報酬、風險、勝率）之間取得不同平衡點的優質解，更符合真實的投資決策場景。"
-        },
-        {
-            question: "6. 我們設計了系統 A (28基因) 和系統 B (10基因) 兩種策略，主要目的是什麼？",
-            options: [
-                "A. 系統 A 專為台股設計，系統 B 專為美股設計。",
-                "B. 探索策略的「複雜度」與「穩健性」之間的權衡，A追求更高性能上限，B追求更強的穩健性。",
-                "C. 系統 A 使用趨勢策略，系統 B 使用反轉策略。",
-                "D. 因為 NSGA-II 演算法要求至少有兩種不同的基因長度。"
-            ],
-            answer: 1,
-            explanation: "<strong>正確答案：B</strong>。系統A（28基因）更複雜，有潛力找到更優的解，但也更容易過擬合。系統B（10基因）更簡潔，可解釋性強，策略可能更穩健。這是一種設計上的權衡探索。"
-        },
-        {
-            question: "7. 在 `ga_engine.py` 中，我們自定義了 `ValidGASampling` 類別，其主要用途是什麼？",
-            options: [
-                "A. 確保演算法在交叉(Crossover)過程中不會出錯。",
-                "B. 確保演算法在初始階段生成的基因都符合內在的邏輯約束(如短期均線天期<長期均線天期)。",
-                "C. 讓演算法可以支援更多種類的技術指標。",
-                "D. 用於將最終找到的最佳基因儲存到資料庫。"
-            ],
-            answer: 1,
-            explanation: "<strong>正確答案：B</strong>。如果初始族群中充滿了邏輯無效的基因，演算法的效率會非常低。`ValidGASampling` 通過篩選，保證了演算法有一個高品質、邏輯正確的起點。"
-        },
-        {
-            question: "8. 演算法如何處理在回測中完全不產生任何交易的策略？",
-            options: [
-                "A. 直接給予最高的評分，因為它沒有產生任何虧損。",
-                "B. 透過一個「交易次數懲罰因子」，大幅降低這種策略的適應度分數(Fitness)，使其被淘汰。",
-                "C. 忽略這些策略，不參與後續的演化。",
-                "D. 系統會強制讓它至少交易一次。"
-            ],
-            answer: 1,
-            explanation: "<strong>正確答案：B</strong>。一個不交易的策略是沒有意義的。我們透過軟性懲罰（降低fitness）和硬性約束（在NSGA-II中視為不可行解）兩種方式，來確保演算法會去尋找有實際交易活動的策略。"
-        },
-        {
-            question: "9. 在「智能資金配置」功能中，Gemini AI 的分析結果如何具體影響最終的配置比例？",
-            options: [
-                "A. 直接取代歷史數據分析，完全由 AI 決定最終的配置比例。",
-                "B. 僅提供文字分析報告，不影響任何數值計算。",
-                "C. 作為一個動態調整因子，根據即時新聞情緒對量化歷史回測得出的基礎分數進行加權調整。",
-                "D. 它的分析結果只用於「策略最新信號」頁面，與資金配置無關。"
-            ],
-            answer: 2,
-            explanation: "<strong>正確答案：C</strong>。AI的角色是為純量化的歷史分析提供一個前瞻性的「校準」。它將即時新聞情緒轉化為調整因子（如1.1倍或0.9倍），微調最終的配置權重，但基礎依然是量化數據。"
-        },
-        {
-            question: "10. 面對 yfinance 的數據源不穩定及台股代號格式問題，我們的 `EnhancedStockAnalyzer` 採取了什麼策略？",
-            options: [
-                "A. 當 yfinance 失敗時，改用另一個付費的數據源。",
-                "B. 如果數據載入失敗，就直接顯示錯誤，讓使用者自己修正代號。",
-                "C. 對於數字代號，會自動依序嘗試加上 `.TW` 和 `.TWO` 後綴進行查詢，直到成功為止。",
-                "D. 系統會快取所有股票過去一年的數據，完全避免即時查詢。"
-            ],
-            answer: 2,
-            explanation: "<strong>正確答案：C</strong>。這是為了提升使用者體驗和系統穩健性而設計的「智慧重試」機制。它讓使用者無需關心上市(.TW)和上櫃(.TWO)的區別，系統會自動處理。"
-        },
-        {
-            question: "11. 在`offline_ga_trainer.py`腳本中，其主要功能是什麼？",
-            options: [
-                "A. 啟動 Flask 網站伺服器。",
-                "B. 批次地、自動化地為股票清單中的每一支股票運行多次 GA/NSGA-II 演算法，並將最佳結果存入資料庫。",
-                "C. 監控伺服器狀態，如果當機則自動重啟。",
-                "D. 每日自動從 Google News 抓取新聞並進行情緒分析。"
-            ],
-            answer: 1,
-            explanation: "<strong>正確答案：B</strong>。這個腳本是我們策略庫的「生產工廠」。它可以在伺服器後台長時間運行，為大量的股票預先訓練好優質策略，供使用者在「策略庫(Explorer)」功能中快速查詢。"
-        },
-        {
-            question: "12. 我們的系統實現了 PWA (Progressive Web App)，這為使用者帶來的主要好處是什麼？",
-            options: [
-                "A. 讓網站的執行速度比原生 App 更快。",
-                "B. 可以將網站「安裝」到手機或電腦桌面，並支援基本的離線訪問。",
-                "C. 自動為使用者過濾掉所有廣告。",
-                "D. PWA 是一種後端技術，與使用者體驗無關。"
-            ],
-            answer: 1,
-            explanation: "<strong>正確答案：B</strong>。PWA的核心價值是提供「類原生應用」的體驗，包括可安裝到主畫面、全螢幕運行、以及透過Service Worker實現的離線可用性。"
-        },
-        {
-            question: "13. 在 `index_page.html` 的 CSS 中，手動回測結果的英雄式指標網格 (`hero-metric-grid`) 設計，主要目的是什麼？",
-            options: [
-                "A. 為了讓頁面看起來更美觀，沒有特殊功能意涵。",
-                "B. 這是 Plotly 圖表的預設樣式，無法修改。",
-                "C. 透過資訊層次化設計，用更大的字體和突出的位置，引導使用者首先關注「總報酬、年化報酬、最大回撤」這三個最核心的指標。",
-                "D. 為了在手機版上可以自動隱藏，節省空間。"
-            ],
-            answer: 2,
-            explanation: "<strong>正確答案：C</strong>。這是一種UI/UX設計策略，稱為「資訊層次化」。透過視覺強調，幫助使用者在複雜的數據報告中快速抓住最重要的資訊，提升資訊的傳達效率。"
-        },
-        {
-            question: "14. `service-worker.js` 這個檔案在 PWA 架構中的核心作用是什麼？",
-            options: [
-                "A. 負責處理所有與後端 API 的通訊。",
-                "B. 執行遺傳演算法的核心計算。",
-                "C. 儲存使用者的登入狀態。",
-                "D. 作為一個在背景運行的腳本，攔截網路請求並管理快取，從而實現離線可用性。"
-            ],
-            answer: 3,
-            explanation: "<strong>正確答案：D</strong>。Service Worker 就像一個位於瀏覽器和網路之間的「代理」。它可以攔截請求，並決定是從網路獲取資源還是直接從本地快取返回資源，這是實現PWA離線功能的關鍵。"
-        },
-        {
-            question: "15. 為何在回測圖表生成時，我們要同時產生一個靜態的 `.png` 圖片和一個互動的 `.html` 檔案？",
-            options: [
-                "A. `.png` 是備份，以防 `.html` 檔案損壞。",
-                "B. `.png` 檔案比 `.html` 檔案更清晰。",
-                "C. 為了提升使用者體驗：在卡片中快速載入輕量的 `.png` 預覽圖，點擊後才在彈出視窗中載入功能完整但較大的互動式 `.html` 圖表。",
-                "D. 這是 Plotly 函式庫的強制要求。"
-            ],
-            answer: 2,
-            explanation: "<strong>正確答案：C</strong>。這是一種常見的性能優化與使用者體驗設計。使用者可以快速預覽結果（PNG），只有在他們感興趣並點擊時，才需要花費額外的時間和資源載入互動圖表（HTML），做到了「按需加載」。"
-        }
+        // 舊的 15 題
+        { question: "1. 我們的後端採用 Flask 框架而非 Django，主要考量是什麼？", options: [ "A. Flask 的安全性遠高於 Django。", "B. Flask 內建了比 Django 更強大的機器學習函式庫。", "C. 系統以 API 為核心，Flask 輕量、靈活的特性更適合快速開發與部署 API 服務。", "D. Flask 對資料庫的支援種類比 Django 更多。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。我們的系統是一個以API為主的單頁應用(SPA)，Flask的輕量和靈活性讓我們能專注於核心演算法的整合與API開發，而無需引入Django龐大的內建功能。" },
+        { question: "2. 我們使用 Cloudflare Tunnel 進行部署，它解決了哪個核心安全問題？", options: [ "A. 防止資料庫被 SQL Injection 攻擊。", "B. 無需在伺服器防火牆上開放任何入站端口，杜絕了針對 IP 的直接攻擊。", "C. 自動壓縮前端的 JavaScript 和 CSS 檔案。", "D. 確保 Python 程式碼不會被反編譯。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。Cloudflare Tunnel 建立了一個從本地伺服器到Cloudflare的出站連接，這意味著伺服器本身無需暴露在公網上，從根本上避免了針對伺服器IP的直接網路攻擊。" },
+        { question: "3. 處理耗時的「策略訓練」任務時，我們採用了非同步任務佇列架構。這個架構如何改善使用者體驗？", options: [ "A. 讓訓練過程的計算速度變得更快。", "B. 後端立即回應「任務已提交」，並在背景執行運算，避免前端頁面卡死或請求超時。", "C. 減少了資料庫的讀寫次數。", "D. 可以讓多個使用者同時訓練同一支股票。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。核心優勢在於「非同步處理」。Web伺服器接收到請求後，將任務放入佇列就立刻回應用戶，然後由獨立的背景Worker執行計算。這確保了使用者介面(UI)始終流暢且不會因等待而超時。" },
+        { question: "4. `utils.py` 在我們的專案中扮演了什麼關鍵角色？", options: [ "A. 儲存所有使用者的帳號密碼。", "B. 專門用來繪製 Plotly 互動圖表。", "C. 作為一個輔助工具模組，提供了資料庫連接、績效指標計算等可重用的核心函式。", "D. 負責管理 Flask 伺服器的啟動與關閉。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。`utils.py` 是一個典型的工具模組，它將專案中多處需要用到的通用功能（如資料庫操作、標準化的績效計算）封裝起來，提高了程式碼的可重用性和可維護性。" },
+        { question: "5. 相較於傳統單目標遺傳演算法，NSGA-II 在我們專案中的最大優勢是什麼？", options: [ "A. 它的運算速度比傳統 GA 快數倍。", "B. 它能保證找到在未來市場中必定獲利的策略。", "C. 它的演算法原理比傳統 GA 更簡單直觀。", "D. 能夠同時優化多個衝突的目標(如報酬率與風險)，並找出一個包含多種權衡解的「帕累托前沿」。" ], answer: 3, explanation: "<strong>正確答案：D</strong>。投資本身就是多目標的權衡。NSGA-II的核心優勢在於它不只找一個解，而是找出一組在不同目標（報酬、風險、勝率）之間取得不同平衡點的優質解，更符合真實的投資決策場景。" },
+        { question: "6. 我們設計了系統 A (28基因) 和系統 B (10基因) 兩種策略，主要目的是什麼？", options: [ "A. 系統 A 專為台股設計，系統 B 專為美股設計。", "B. 探索策略的「複雜度」與「穩健性」之間的權衡，A追求更高性能上限，B追求更強的穩健性。", "C. 系統 A 使用趨勢策略，系統 B 使用反轉策略。", "D. 因為 NSGA-II 演算法要求至少有兩種不同的基因長度。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。系統A（28基因）更複雜，有潛力找到更優的解，但也更容易過擬合。系統B（10基因）更簡潔，可解釋性強，策略可能更穩健。這是一種設計上的權衡探索。" },
+        { question: "7. 在 `ga_engine.py` 中，我們自定義了 `ValidGASampling` 類別，其主要用途是什麼？", options: [ "A. 確保演算法在交叉(Crossover)過程中不會出錯。", "B. 確保演算法在初始階段生成的基因都符合內在的邏輯約束(如短期均線天期<長期均線天期)。", "C. 讓演算法可以支援更多種類的技術指標。", "D. 用於將最終找到的最佳基因儲存到資料庫。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。如果初始族群中充滿了邏輯無效的基因，演算法的效率會非常低。`ValidGASampling` 通過篩選，保證了演算法有一個高品質、邏輯正確的起點。" },
+        { question: "8. 演算法如何處理在回測中完全不產生任何交易的策略？", options: [ "A. 直接給予最高的評分，因為它沒有產生任何虧損。", "B. 透過一個「交易次數懲罰因子」，大幅降低這種策略的適應度分數(Fitness)，使其被淘汰。", "C. 忽略這些策略，不參與後續的演化。", "D. 系統會強制讓它至少交易一次。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。一個不交易的策略是沒有意義的。我們透過軟性懲罰（降低fitness）和硬性約束（在NSGA-II中視為不可行解）兩種方式，來確保演算法會去尋找有實際交易活動的策略。" },
+        { question: "9. 在「智能資金配置」功能中，Gemini AI 的分析結果如何具體影響最終的配置比例？", options: [ "A. 直接取代歷史數據分析，完全由 AI 決定最終的配置比例。", "B. 僅提供文字分析報告，不影響任何數值計算。", "C. 作為一個動態調整因子，根據即時新聞情緒對量化歷史回測得出的基礎分數進行加權調整。", "D. 它的分析結果只用於「策略最新信號」頁面，與資金配置無關。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。AI的角色是為純量化的歷史分析提供一個前瞻性的「校準」。它將即時新聞情緒轉化為調整因子（如1.1倍或0.9倍），微調最終的配置權重，但基礎依然是量化數據。" },
+        { question: "10. 面對 yfinance 的數據源不穩定及台股代號格式問題，我們的 `EnhancedStockAnalyzer` 採取了什麼策略？", options: [ "A. 當 yfinance 失敗時，改用另一個付費的數據源。", "B. 如果數據載入失敗，就直接顯示錯誤，讓使用者自己修正代號。", "C. 對於數字代號，會自動依序嘗試加上 `.TW` 和 `.TWO` 後綴進行查詢，直到成功為止。", "D. 系統會快取所有股票過去一年的數據，完全避免即時查詢。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這是為了提升使用者體驗和系統穩健性而設計的「智慧重試」機制。它讓使用者無需關心上市(.TW)和上櫃(.TWO)的區別，系統會自動處理。" },
+        { question: "11. 在`offline_ga_trainer.py`腳本中，其主要功能是什麼？", options: [ "A. 啟動 Flask 網站伺服器。", "B. 批次地、自動化地為股票清單中的每一支股票運行多次 GA/NSGA-II 演算法，並將最佳結果存入資料庫。", "C. 監控伺服器狀態，如果當機則自動重啟。", "D. 每日自動從 Google News 抓取新聞並進行情緒分析。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。這個腳本是我們策略庫的「生產工廠」。它可以在伺服器後台長時間運行，為大量的股票預先訓練好優質策略，供使用者在「策略庫(Explorer)」功能中快速查詢。" },
+        { question: "12. 我們的系統實現了 PWA (Progressive Web App)，這為使用者帶來的主要好處是什麼？", options: [ "A. 讓網站的執行速度比原生 App 更快。", "B. 可以將網站「安裝」到手機或電腦桌面，並支援基本的離線訪問。", "C. 自動為使用者過濾掉所有廣告。", "D. PWA 是一種後端技術，與使用者體驗無關。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。PWA的核心價值是提供「類原生應用」的體驗，包括可安裝到主畫面、全螢幕運行、以及透過Service Worker實現的離線可用性。" },
+        { question: "13. 在 `index_page.html` 的 CSS 中，手動回測結果的英雄式指標網格 (`hero-metric-grid`) 設計，主要目的是什麼？", options: [ "A. 為了讓頁面看起來更美觀，沒有特殊功能意涵。", "B. 這是 Plotly 圖表的預設樣式，無法修改。", "C. 透過資訊層次化設計，用更大的字體和突出的位置，引導使用者首先關注「總報酬、年化報酬、最大回撤」這三個最核心的指標。", "D. 為了在手機版上可以自動隱藏，節省空間。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這是一種UI/UX設計策略，稱為「資訊層次化」。透過視覺強調，幫助使用者在複雜的數據報告中快速抓住最重要的資訊，提升資訊的傳達效率。" },
+        { question: "14. `service-worker.js` 這個檔案在 PWA 架構中的核心作用是什麼？", options: [ "A. 負責處理所有與後端 API 的通訊。", "B. 執行遺傳演算法的核心計算。", "C. 儲存使用者的登入狀態。", "D. 作為一個在背景運行的腳本，攔截網路請求並管理快取，從而實現離線可用性。" ], answer: 3, explanation: "<strong>正確答案：D</strong>。Service Worker 就像一個位於瀏覽器和網路之間的「代理」。它可以攔截請求，並決定是從網路獲取資源還是直接從本地快取返回資源，這是實現PWA離線功能的關鍵。" },
+        { question: "15. 為何在回測圖表生成時，我們要同時產生一個靜態的 `.png` 圖片和一個互動的 `.html` 檔案？", options: [ "A. `.png` 是備份，以防 `.html` 檔案損壞。", "B. `.png` 檔案比 `.html` 檔案更清晰。", "C. 為了提升使用者體驗：在卡片中快速載入輕量的 `.png` 預覽圖，點擊後才在彈出視窗中載入功能完整但較大的互動式 `.html` 圖表。", "D. 這是 Plotly 函式庫的強制要求。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這是一種常見的性能優化與使用者體驗設計。使用者可以快速預覽結果（PNG），只有在他們感興趣並點擊時，才需要花費額外的時間和資源載入互動圖表（HTML），做到了「按需加載」。" },
+        
+        // 新增的 35 題
+        { question: "16. 在 NSGA-II 的每一代演化中，第一個也是最關鍵的步驟是什麼？", options: [ "A. 變異 (Mutation)。", "B. 交叉 (Crossover)。", "C. 執行「非支配排序 (Non-dominated Sorting)」將族群分入不同的帕累托前沿 (Pareto Fronts)。", "D. 計算每個解的夏普比率。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。非支配排序是NSGA-II的核心，它首先根據多個目標的優劣關係，將整個族群劃分到不同的優秀等級（Fronts），這是後續所有選擇操作的基礎。" },
+        { question: "17. 在完成「非支配排序」後，NSGA-II 使用「擁擠度計算 (Crowding Distance)」的主要目的是什麼？", options: [ "A. 為了計算每個策略的總報酬率。", "B. 為了懲罰交易次數過少的策略。", "C. 在同一層級的帕累托前沿中，優先選擇處於較稀疏區域的解，以保持解的多樣性。", "D. 為了加快演算法的收斂速度。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。擁擠度是維持族群多樣性的關鍵機制。如果沒有它，演算法可能會讓所有最優解都擠在帕累托前沿的某個小區域內。擁擠度計算會獎勵那些「獨特」的解，確保最終的解集覆蓋更廣泛的權衡空間。" },
+        { question: "18. 什麼是「帕累托最優解 (Pareto Optimal Solution)」？", options: [ "A. 在所有目標上都達到最高分的單一最佳解。", "B. 一個無法在不犧牲至少一個目標表現的情況下，去提升另一個目標表現的解。", "C. 交易次數最多且勝率最高的解。", "D. 演算法運行時間最短的解。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。這是帕累托最優的標準定義。在一個由這類解組成的集合（帕累托前沿）中，任何兩個解之間的選擇都必然是一種「權衡取捨」。" },
+        { question: "19. 我們的演算法使用「錦標賽選擇法 (Tournament Selection)」來挑選父代進行繁殖。這個方法的運作方式是？", options: [ "A. 直接選擇每一代中適應度分數最高的前 10% 個體。", "B. 隨機挑選一小組個體，並從中選擇帕累托層級最高、擁擠度最大的個體作為勝者。", "C. 將所有個體依照報酬率排序，然後依序挑選。", "D. 優先選擇基因序列最長的策略。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。錦標賽選擇法是NSGA-II的標準選擇機制。它透過小範圍的競爭來決定勝者，判斷標準結合了「解的優秀程度（帕累托層級）」和「解的獨特性（擁擠度）」。" },
+        { question: "20. 在我們的基因編碼中，一個像 `rsi_p = 2` 這樣的基因值，實際代表什麼？", options: [ "A. 代表 RSI 的週期直接設定為 2 天。", "B. 代表 RSI 的計算權重為 2。", "C. 代表從預先定義的 RSI 週期選項列表 `[7, 14, 21]` 中，選擇索引為 2 的選項 (即 21 天)。", "D. 這是一個無意義的數值，僅供演算法內部使用。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。我們的基因採用的是「索引式編碼」。基因值本身不代表參數的實際數值，而是指向一個預定義選項列表中的位置。這種設計便於控制參數的範圍和步長。" },
+        { question: "21. 我們使用了「模擬二元交叉 (SBX)」和「多項式變異 (PM)」操作，它們在演化過程中的核心作用是？", options: [ "A. 負責評估每個策略的適應度分數。", "B. 負責從父代基因生成新的子代基因，探索新的可能性。", "C. 負責將無效的基因從族群中移除。", "D. 負責將最終結果儲存到資料庫。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。交叉（Crossover）和變異（Mutation）是遺傳演算法的兩大核心進化操作。交叉負責組合優秀父代的特徵，而變異則負責引入新的基因變化，共同推動族群向更優的方向進化。" },
+        { question: "22. 系統 A 和系統 B 的基因長度不同 (28 vs 10)，這對演算法的「搜索空間」有何影響？", options: [ "A. 沒有影響，演算法會自動適應。", "B. 系統 A 的搜索空間遠大於系統 B，理論上可能找到更優的解，但也更容易陷入局部最優。", "C. 基因長度越短，搜索空間越大。", "D. 基因長度只影響計算速度，不影響搜索空間。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。搜索空間的大小與基因長度和每個基因的可能性呈指數關係。更大的搜索空間意味著更多的可能性，但也需要更長的訓練時間和更大的族群規模才能有效探索。" },
+        { question: "23. 在`select_best_from_pareto`函式中，我們最終是如何從一組帕累托最優解中，挑選出一個策略推薦給使用者的？", options: [ "A. 隨機挑選一個。", "B. 總是挑選總報酬率最高的那一個。", "C. 根據使用者在前端設定的權重，對所有帕累托解的各項指標進行加權評分，選出綜合得分最高者。", "D. 總是挑選最大回撤最低的那一個。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這個步驟將NSGA-II產生的「客觀最優解集」與使用者的「主觀偏好」結合起來。系統計算每個解的綜合分數，從而實現了個人化推薦。" },
+        { question: "24. NSGA-II 中的「精英策略 (Elitism)」確保了什麼？", options: [ "A. 每一代的族群規模都會增加。", "B. 每一代的最佳解（帕累托前沿）不會比上一代更差。", "C. 變異操作不會產生無效的基因。", "D. 只有交易次數最多的策略才能被選中。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。精英策略是遺傳演算法中的一個重要概念，它將上一代的最優秀個體直接複製到下一代，確保了演化的方向不會因為隨機的交叉和變異操作而倒退。" },
+        { question: "25. 為什麼在 NSGA-II 的目標函數中，我們需要將「最大化總報酬」轉換為「最小化負總報酬」？", options: [ "A. 為了讓所有目標的數值都在 0 和 1 之間。", "B. 為了增加計算的複雜度。", "C. 因為 `pymoo` 框架的 `minimize` 函式預設是解決最小化問題，所以需要將最大化目標取反。", "D. 這只是一種程式碼風格，沒有實際作用。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這是一個常見的數學技巧。最小化一個數的相反數，等價於最大化這個數本身。由於 `pymoo` 的優化器是 `minimize`，我們必須將所有「越大越好」的目標（如報酬率、夏普比率）取負號，以符合框架的要求。" },
+        { question: "26. (多選題) 系統 A (28基因) 的策略庫中，內建了哪幾種交易策略邏輯？", type: "checkbox", options: [ "A. MA Cross (均線交叉)", "B. Triple EMA (三重指數移動平均)", "C. MACD + KD Crossover", "D. BB+RSI (布林帶 + 相對強弱指數)", "E. BB+ADX (布林帶 + 平均趨向指標)", "F. ATR+KD (真實波幅 + 隨機指標)", "G. BB+MACD (布林帶 + MACD)", "H. VIX + ATR Volatility Breakout" ], answer: [0, 1, 3, 4, 5, 6], explanation: "<strong>正確答案：A, B, D, E, F, G</strong>。根據 `ga_engine.py` 中的 `STRAT_NAMES` 列表，系統 A 包含了這 8 種策略中的 7 種。選項 C 和 H 是虛構的組合，用來測試對策略庫的熟悉程度。" },
+        { question: "27. 我們的策略模型使用 VIX 指數作為市場狀態的判斷基準。當 VIX 高於基因設定的閾值時，系統會如何改變行為？", options: [ "A. 立即賣出所有持倉並停止交易。", "B. 從預設的「常規策略 (`normal_strat`)」切換到「避險策略 (`risk_off_strat`)」。", "C. 降低所有交易的手續費計算比例。", "D. 增加 RSI 指標的計算週期以降低敏感度。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。這是我們波動率切換模型的核心邏輯。高VIX代表市場恐慌，系統會切換到可能更保守或更適合高波動環境的策略集 (`risk_off_strat`) 來應對。" },
+        { question: "28. 在系統 B (10基因) 的低波動市場進場邏輯中，觸發買入的條件是什麼？", options: [ "A. RSI 指標低於 30。", "B. 股價觸及布林帶下軌。", "C. 短期均線 (5日) 向上穿越長期均線 (10日)，即「黃金交叉」。", "D. ADX 指標高於 40。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。根據 `ga_engine_b.py` 的核心邏輯，在低波動（`is_high_vol = false`）市場中，系統 B 採用的是固定的均線交叉策略作為進場信號。" },
+        { question: "29. 系統 B 在高波動市場下，提供了兩種進場策略 (BB+RSI 或 BB+ADX)。這兩種策略的核心邏輯差異在哪？", options: [ "A. BB+RSI 是趨勢追蹤策略，BB+ADX 是反轉策略。", "B. BB+RSI 試圖在超賣時抄底 (反轉)，而 BB+ADX 則是在確認下跌趨勢強度時尋找反彈機會。", "C. 兩者沒有差異，只是使用的指標不同。", "D. BB+RSI 用於美股，BB+ADX 用於台股。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。BB+RSI 是典型的反轉策略，認為股價觸及下軌且RSI超賣是反彈的機會。而BB+ADX則增加了一個ADX條件，要求市場存在明確趨勢，邏輯上更偏向於在趨勢中的回調點進場。" },
+        { question: "30. 在資料庫中，`ai_vs_user_games` 表和 `saved_strategies` 表的核心區別是什麼？", options: [ "A. `ai_vs_user_games` 儲存系統 A 的策略，`saved_strategies` 儲存系統 B 的策略。", "B. `ai_vs_user_games` 儲存由離線訓練器自動產生的各股票最佳策略，而 `saved_strategies` 儲存使用者手動收藏或訓練的個人化策略。", "C. 兩者結構完全相同，只是為了備份。", "D. `ai_vs_user_games` 儲存失敗的訓練記錄，`saved_strategies` 儲存成功的。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。`ai_vs_user_games` 是系統的「公共策略庫」，由 `offline_trainer` 填充；`saved_strategies` 是使用者的「個人收藏夾」，與特定 `user_id` 綁定。" },
+        { question: "31. `backtest_signals` 這張表的主要用途是什麼？", options: [ "A. 儲存所有使用者的登入記錄。", "B. 每日排程回測任務執行後，用來儲存那些在近期觸發了明確買入或賣出信號的策略結果，以驅動「信號」頁面的顯示。", "C. 快取從 yfinance 獲取的歷史股價。", "D. 記錄使用者在資金配置器中的操作。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。這張表是「信號」頁面的數據來源。每日排程任務會清空並重新填充這張表，確保前端用戶看到的永遠是最新的市場機會。" },
+        { question: "32. 我們為什麼選擇使用 `TEXT` 或 `JSON` 類型來儲存策略的 `gene`，而不是為每個基因參數創建單獨的欄位？", options: [ "A. `TEXT/JSON` 類型佔用的儲存空間更小。", "B. 為了**保持架構的靈活性**，這樣同一張表就可以儲存不同長度（如系統 A 的 28 個和系統 B 的 10 個）的基因，而無需修改資料庫結構。", "C. 因為資料庫不支援儲存數字陣列。", "D. 這樣查詢速度會更快。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。這是典型的用「彈性」換取「嚴格結構」的設計決策。如果為每個基因都設欄位，那麼每次基因結構變更都需要修改資料庫表，非常麻煩。使用JSON格式則可以輕鬆應對未來的變化。" },
+        { question: "33. 在 `saved_strategies` 表中，`last_signal_type` 和 `last_signal_date` 這兩個欄位的資料是由哪個系統模組負責更新的？", options: [ "A. 使用者在前端手動更新。", "B. 由 Flask 主程式在使用者登入時更新。", "C. 由一個每日執行的**背景排程任務 (`UserStrategyMonitor`)** 自動掃描和更新。", "D. 在使用者儲存策略的當下就固定下來，不再變動。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這是「我的策略」頁面能顯示即時持倉狀態的關鍵。`apscheduler` 會定時觸發 `run_user_strategies_scan` 函式，該函式會對每個使用者策略進行近期回測並更新其最新信號狀態。" },
+        { question: "34. 「策略庫 (Explorer)」功能的核心目的是什麼？", options: [ "A. 讓使用者可以和其他人分享自己的策略。", "B. 作為一個「策略市場」，讓使用者可以購買更高級的策略。", "C. 在使用者進行耗時的**全新訓練之前**，提供一個快速查詢入口，讓他們可以先看看系統是否已經為這支股票預先訓練好了優質策略。", "D. 顯示所有使用者儲存策略的排行榜。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。Explorer 的核心價值是「節省使用者時間」。與其每次都從零開始訓練，不如先查詢一下系統的「預訓練模型庫」，如果已有滿意的策略，就可以直接收藏使用。" },
+        { question: "35. 在「手動回測器」中，系統在什麼情況下會提示「近期有買入/賣出訊號」？", options: [ "A. 只要回測結果是獲利的。", "B. 當回測的**結束日期**被設定為**執行當天**時。", "C. 只要回測期間內的交易次數超過 10 次。", "D. 只有在使用系統 A 的基因進行回測時。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。這個功能是為了提供「前瞻性」的決策支持。只有當回測包含了最新的市場數據時，系統才能判斷策略在「當下」的狀態，因此將結束日期設為今天是一個觸發條件。" },
+        { question: "36. 「智能資金配置器」聲稱其建議基於三大支柱，以下何者**不是**其中之一？", options: [ "A. 策略的歷史量化回測績效。", "B. 使用者選擇的個人風險偏好（保守/均衡/積極）。", "C. 使用者帳戶的總資產規模。", "D. 由 Gemini AI 分析的即時市場新聞與情緒。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。我們的配置器提供的是「比例」建議，而非「絕對金額」建議。因此，它不考慮使用者的總資產，而是專注於量化績效、風險偏好和AI市場洞察這三個核心要素。" },
+        { question: "37. 我們在回測結果中同時提供了「夏普比率 (Sharpe Ratio)」和「索提諾比率 (Sortino Ratio)」。索提諾比率相較於夏普比率，在評估風險時有何不同？", options: [ "A. 索提諾比率只考慮了上漲時的波動，而忽略了下跌風險。", "B. 索提諾比率在計算風險時，**只考慮了有害的下方波動（下跌）**，而夏普比率則將所有波動（無論漲跌）都視為風險。", "C. 索提諾比率的計算比夏普比率更簡單快速。", "D. 兩者沒有區別，只是名稱不同。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。索提諾比率被認為是夏普比率的改良版，它認為向上的波動是投資者樂見的，不應視為風險。因此，它只用「下行標準差」作為分母，能更好地衡量策略控制虧損風險的能力。" },
+        { question: "38. 在「我的策略」頁面，勾選多個策略後，為什麼「資金配置」按鈕會自動禁用 ticker 重複的策略？", options: [ "A. 這是系統的一個 bug。", "B. 因為在同一個投資組合中對同一支股票配置多個不同策略，在邏輯上是衝突且難以執行的。", "C. 為了限制使用者一次最多只能配置 5 個策略。", "D. 只有 VIP 使用者才能對同一支股票配置多個策略。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。這是一個故意的設計，為了避免使用者產生邏輯混亂的投資組合。例如，如果策略A建議買入AAPL，而策略B建議賣出AAPL，系統將無法給出一個明確的資金配置建議。" },
+        { question: "39. 在資金配置結果中，AI 為每個策略分配了如「核心增長」、「穩定基石」、「衛星配置」等角色，其判斷依據是什麼？", options: [ "A. 根據股票的市值大小。", "B. 根據股票所屬的產業類別。", "C. 根據策略的**量化分數**和**穩定性分數**的組合，得分最高者為核心，穩定性最強者為基石，其餘為衛星。", "D. 隨機分配。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這是 `assign_portfolio_roles` 函式中的核心邏輯。它首先選出綜合得分最高的作為「核心」，然後在剩下的策略中選出風險指標（如下行波動率、最大回撤）表現最好的作為「基石」，最後將其餘的歸類為「衛星」。" },
+        { question: "40. 我們的離線訓練腳本 (`offline_ga_trainer.py`) 中設定了「智能暫停機制」，其目的是什麼？", options: [ "A. 為了讓伺服器有時間休息，防止過熱。", "B. 在大量、連續地向 yfinance API 請求數據時，透過短暫暫停來避免因請求頻率過高而被臨時封鎖。", "C. 為了在暫停期間執行資料庫備份。", "D. 為了等待使用者輸入指令。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。yfinance 是一個免費的數據源，對高頻率的API請求有限制。為了能穩定地完成對數百支股票的數據抓取，我們的主動暫停策略是一個非常必要的「尊重API」的行為，可以有效避免IP被臨時限制。" },
+        { question: "41. 一位使用者想為一支新的、不在我們預設清單中的台股 (如 6789.TWO) 尋找策略，他應該遵循的最佳路徑是什麼？", options: [ "A. 直接去「信號」頁面，等待系統自動出現信號。", "B. 先去「策略庫」查詢，如果查不到，再去「訓練器」自行設定權重並啟動一次新訓練。", "C. 只能透過修改 `tw_stock.csv` 檔案來新增股票。", "D. 寫信給客服，請求手動為這支股票新增策略。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。這是系統設計的標準使用者流程：先查詢現有資源（策略庫），如果沒有，再使用創造工具（訓練器）。同時，在訓練器成功載入數據後，系統會自動將這個新的代號記錄下來。" },
+        { question: "42. 如果使用者在「訓練器」中將「回撤懲罰」權重調到最高 (1.0)，其他都設為 0，他最有可能得到什麼樣的策略？", options: [ "A. 一個總報酬率極高，但波動劇烈的策略。", "B. 一個交易次數非常頻繁的短線策略。", "C. 一個在歷史回測中**最大資金回撤幅度極低**的策略，但其總報酬率可能不是最高的。", "D. 一個勝率接近 100% 的策略。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。使用者的權重設定直接指導了NSGA-II的選擇偏好。將所有權重都集中在「回撤懲罰」上，意味著演算法會極力避免產生巨大虧損的策略，即使這意味著要犧牲一部分潛在的報酬率。" },
+        { question: "43. 我們的系統使用了 `apscheduler` 來執行每日排程任務。這與 `main_app備分.py` 中的背景訓練 Worker 執行緒有何不同？", options: [ "A. `apscheduler` 只能執行非常簡單的任務，而 Worker 執行緒可以執行複雜的計算。", "B. 兩者沒有區別，只是實現方式不同。", "C. `apscheduler` 負責**按預定時間觸發**任務（如每日17:30），而 Worker 執行緒則負責處理由**使用者即時觸發**、放入佇列中的任務。", "D. `apscheduler` 是前端技術，Worker 執行緒是後端技術。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。兩者是我們後端非同步架構的兩個不同部分：`apscheduler` 是「時間驅動」的，負責定時任務；而基於 `queue` 的 Worker 是「事件驅動」的，負責處理來自使用者的即時請求。" },
+        { question: "44. 在`main_app備分.py`的`create_backtest_chart_assets`函式中，我們為圖表 URL 加上了 `?v={int(time.time())}` 這樣的後綴，這是為了什麼？", options: [ "A. 為了記錄圖表生成的時間。", "B. 這是一種安全加密措施。", "C. 為了**防止瀏覽器快取**。這確保了每次使用者重新回測時，都能看到最新生成的圖表，而不是瀏覽器中儲存的舊版本。", "D. 為了讓 URL 看起來更長、更專業。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這是一種常見的前端開發技巧，稱為「快取破壞 (Cache Busting)」。透過在 URL 後面附加一個每次都不同的參數（時間戳是最好的選擇），可以欺騙瀏覽器，讓它認為這是一個全新的資源，從而強制它去伺服器重新下載。" },
+        { question: "45. 如果我們要為系統增加一個「使用者偏好設定」頁面（例如，預設的風險偏好），從資料庫的角度，最合理的做法是什麼？", options: [ "A. 在 `saved_strategies` 表中新增欄位。", "B. 在 `users` 表中新增相關欄位（如 `default_risk_profile`），因為這些設定是跟隨使用者的。", "C. 創建一個全新的 `user_preferences` 表。", "D. 將設定直接儲存在前端的 `localStorage` 中，不涉及資料庫。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。從資料庫設計的正規化角度看，使用者的偏好設定是使用者本身的屬性，最適合直接擴展 `users` 表。如果未來偏好設定變得非常複雜，也可以考慮選項 C，但目前 B 是最直接且合理的做法。" },
+        { question: "46. 為什麼在`offline_trainer.py`中，我們需要呼叫`calculate_detailed_metrics_for_traditional_ga`重新計算一次績效，而不是直接使用演算法返回的 fitness？", options: [ "A. 因為演算法返回的 fitness 經過了**交易次數懲罰**的調整，它不等於策略的真實總報酬率，需要用標準化函式重新計算才能獲得準確的各項指標。", "B. 演算法返回的 fitness 是加密的，需要解密。", "C. 這是一個重複的步驟，可以被優化掉。", "D. 為了將績效轉換為美元計算。" ], answer: 0, explanation: "<strong>正確答案：A</strong>。演算法內部使用的「適應度分數(fitness)」是為了「引導優化方向」而設計的，它可能包含了各種懲罰項。而我們最終需要呈現給使用者或存入資料庫的，是策略「純粹、客觀」的績效指標，因此必須用標準的計算函式重新跑一次。" },
+        { question: "47. 整個系統中，哪一個部分是實現「個人化」投資策略的核心？", options: [ "A. 「信號」頁面， क्योंकि यह नवीनतम बाजार अवसर दिखाता है।", "B. 「訓練器」頁面，因為它允許使用者透過**調整因子權重**來影響演算法的尋優方向，從而生成符合其風險偏好的策略。", "C. 「策略庫」頁面，因為它收藏了所有股票的策略。", "D. 登入頁面，因為它驗證了使用者的身份。" ], answer: 1, explanation: "<strong>正確答案：B</strong>。訓練器是從無到有創造策略的地方。「權重調整」的設計，就是將使用者主觀的投資偏好（例如「我更看重勝率」）轉化為演算法可以理解的數學目標，這是實現「個人化」的關鍵介面。" },
+        { question: "48. 我們的前端介面是作為一個 SPA (單頁應用) 實現的。這意味著什麼？", options: [ "A. 整個網站只有一個 `index_page.html` 頁面，所有的頁面切換都是透過 JavaScript 在前端動態改變內容，而不是向伺服器請求一個全新的 HTML 頁面。", "B. 網站的所有功能都只能在一個頁面內完成。", "C. 網站不需要後端伺服器即可運行。", "D. 網站只能被單一使用者同時訪問。" ], answer: 0, explanation: "<strong>正確答案：A</strong>。SPA 提供了更流暢、更像桌面應用程式的使用者體驗。初始載入後，大部分的頁面導航和內容更新都由前端的 JavaScript 完成，只在需要新數據時才向後端 API 發送請求。" },
+        { question: "49. 我們的`main_app備分.py`在啟動時會執行`run_user_strategies_scan`排程任務，這個任務的目的是？", options: [ "A. 刪除超過30天未使用的舊策略。", "B. 重新訓練所有使用者儲存的策略以適應最新市場。", "C. 檢查所有使用者儲存的策略，在**近期市場數據下的最新持倉狀態**（買入/賣出/持有/無倉位），並更新資料庫。", "D. 為所有使用者策略生成績效排行榜。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。這個任務是「我的策略」頁面中動態狀態標籤（如「賣出」、「持有中」）的數據來源。它確保了使用者收藏的策略狀態能夠每日自動更新，提供即時的決策參考。" },
+        { question: "50. 考慮到整個系統的複雜度，如果發生了一個難以追蹤的錯誤，你認為哪個工具或檔案是進行除錯(Debug)的第一站？", options: [ "A. `tw_stock.csv` 股票清單。", "B. `manifest.json` PWA設定檔。", "C. **伺服器日誌 (`offline_trainer_b.log` 或 Flask 執行的控制台輸出)**，因為它記錄了從 API 請求到資料庫操作再到演算法執行的每一步詳細資訊。", "D. `login.html` 的原始碼。" ], answer: 2, explanation: "<strong>正確答案：C</strong>。伺服器日誌是追蹤後端問題最重要的工具。無論是API請求失敗、資料庫查詢錯誤，還是演算法內部崩潰，詳細的日誌和錯誤堆疊追蹤（Traceback）都能提供定位問題的關鍵線索。" }
     ];
 
     const quizForm = document.getElementById('quiz-form');
     const checkButton = document.getElementById('check-button');
     const resultsContainer = document.getElementById('results');
-    const explanationsContainer = document.getElementById('explanations');
 
     function buildQuiz() {
         quizData.forEach((item, index) => {
@@ -295,62 +105,73 @@
 
             const questionText = document.createElement('p');
             questionText.className = 'question-text';
-            questionText.textContent = item.question;
+            questionText.innerHTML = item.question;
             questionBlock.appendChild(questionText);
             
             const optionsDiv = document.createElement('div');
             optionsDiv.className = 'options';
+            
+            const inputType = item.type === 'checkbox' ? 'checkbox' : 'radio';
 
             item.options.forEach((option, optionIndex) => {
                 const label = document.createElement('label');
-                const radio = document.createElement('input');
-                radio.type = 'radio';
-                radio.name = `question${index}`;
-                radio.value = optionIndex;
-                label.appendChild(radio);
+                const input = document.createElement('input');
+                input.type = inputType;
+                input.name = `question${index}`;
+                input.value = optionIndex;
+                label.appendChild(input);
                 label.appendChild(document.createTextNode(option));
                 optionsDiv.appendChild(label);
             });
             questionBlock.appendChild(optionsDiv);
+            
+            const explanation = document.createElement('div');
+            explanation.className = 'explanation';
+            explanation.innerHTML = item.explanation;
+            questionBlock.appendChild(explanation);
+            
             quizForm.appendChild(questionBlock);
         });
     }
 
     function checkAnswers() {
         let score = 0;
-        explanationsContainer.innerHTML = '<h2>答案詳解</h2>';
         
         quizData.forEach((item, index) => {
             const questionBlock = document.getElementById(`q-${index}`);
             questionBlock.classList.remove('correct', 'incorrect');
             
-            const selected = document.querySelector(`input[name="question${index}"]:checked`);
-            
-            if (selected) {
-                if (parseInt(selected.value) === item.answer) {
+            if (item.type === 'checkbox') {
+                const selected = Array.from(document.querySelectorAll(`input[name="question${index}"]:checked`)).map(el => parseInt(el.value));
+                const answer = item.answer.sort();
+                selected.sort();
+                
+                if (JSON.stringify(selected) === JSON.stringify(answer)) {
                     score++;
                     questionBlock.classList.add('correct');
                 } else {
                     questionBlock.classList.add('incorrect');
                 }
             } else {
-                questionBlock.classList.add('incorrect');
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selected && parseInt(selected.value) === item.answer) {
+                    score++;
+                    questionBlock.classList.add('correct');
+                } else {
+                    questionBlock.classList.add('incorrect');
+                }
             }
-
-            const explanation = document.createElement('div');
-            explanation.className = 'explanation';
-            explanation.innerHTML = `<strong>第 ${index + 1} 題：</strong>${item.explanation}`;
-            questionBlock.appendChild(explanation);
         });
         
-        resultsContainer.textContent = `測驗結果：${score} / ${quizData.length}`;
+        resultsContainer.innerHTML = `測驗結果：${score} / ${quizData.length}`;
+        resultsContainer.style.color = (score / quizData.length) > 0.8 ? '#31a24c' : '#e02c4d';
+
         checkButton.textContent = '重新測驗';
         checkButton.onclick = () => window.location.reload();
     }
 
     buildQuiz();
     checkButton.addEventListener('click', checkAnswers);
-
 </script>
 
 </body>
