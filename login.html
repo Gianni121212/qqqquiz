@@ -3,338 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能投資羅盤</title>
-
-    <!-- PWA/行動裝置優化標籤 -->
-    <meta name="theme-color" content="#1a202c"/>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/static/manifest.json">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto+Slab:wght@600;700&display=swap" rel="stylesheet">
-    
+    <title>智能投資羅盤 - QA 技術小考</title>
     <style>
-        :root {
-            --bg-color: #1a202c;
-            --form-bg: rgba(23, 25, 35, 0.6);
-            --text-primary: #edf2f7;
-            --text-secondary: #a0aec0;
-            --accent-color: #F5B041; /* Gold */
-            --accent-gradient: linear-gradient(45deg, #F5B041, #F39C12);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --success-color: #2ECC71;
-            --error-color: #E74C3C;
-            --font-body: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-heading: 'Roboto Slab', serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: var(--font-body);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
         }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(315deg, rgba(52, 152, 219, 0.2) 0%, rgba(46, 49, 72, 0.3) 50%, rgba(243, 156, 18, 0.2) 100%);
-            background-size: 200% 200%;
-            animation: gradient-animation 15s ease infinite;
-            z-index: 1;
-        }
-
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .form-container {
-            position: relative;
-            z-index: 2;
-            background: var(--form-bg);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 420px;
+        h1 {
+            color: #1877f2;
             text-align: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            animation: fade-in 0.5s ease-out;
+            border-bottom: 2px solid #1877f2;
+            padding-bottom: 10px;
         }
-
-        @keyframes fade-in {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .header {
-            margin-bottom: 30px;
-        }
-        
-        .logo-image {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            border-radius: 18px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .header h2 {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        
-        .header p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
+        .quiz-container {
+            background-color: #fff;
             border-radius: 8px;
-            font-size: 1rem;
-            color: var(--text-primary);
-            transition: all 0.2s ease;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
-        input::placeholder {
-            color: #718096;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(245, 176, 65, 0.3);
-        }
-
-        .btn {
-            background: var(--accent-gradient);
-            color: white;
-            border: none;
+        .question-block {
+            margin-bottom: 25px;
             padding: 15px;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s;
+        }
+        .question-block.correct {
+            border-color: #31a24c;
+            background-color: #f0f9f2;
+        }
+        .question-block.incorrect {
+            border-color: #e02c4d;
+            background-color: #fdf2f4;
+        }
+        .question-text {
             font-weight: 600;
-            width: 100%;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            background-color: #f0f2f5;
+            transition: background-color 0.2s;
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.25);
+        .options label:hover {
+            background-color: #e4e6eb;
         }
-
-        .btn:active {
-            transform: translateY(0);
-            box-shadow: none;
+        .options input[type="radio"] {
+            margin-right: 10px;
         }
-
-        .toggle-link {
-            margin-top: 25px;
-            color: var(--accent-color);
-            cursor: pointer;
-            display: inline-block;
-            font-weight: 500;
-            text-decoration: none;
-        }
-        
-        .toggle-link:hover {
-            text-decoration: underline;
-        }
-
-        .message {
-            margin-top: 20px;
-            padding: 12px;
-            border-radius: 8px;
-            display: none;
-            font-weight: 500;
-            border: 1px solid transparent;
+        .button-container {
             text-align: center;
+            margin-top: 20px;
         }
-
-        .message.success {
-            background: rgba(46, 204, 113, 0.2);
-            color: #A9DFBF;
-            border-color: rgba(46, 204, 113, 0.5);
+        #check-button {
+            background-color: #1877f2;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-
-        .message.error {
-            background: rgba(231, 76, 60, 0.2);
-            color: #F5B7B1;
-            border-color: rgba(231, 76, 60, 0.5);
+        #check-button:hover {
+            background-color: #166fe5;
         }
-
-        #register-form { display: none; }
-        
-        @media (max-width: 480px) {
-            .form-container {
-                width: 90%;
-                padding: 30px;
-            }
+        #results {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px 0;
         }
-
+        .explanation {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            font-size: 0.95em;
+        }
+        .explanation strong {
+            color: #31a24c;
+        }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        
-        <div class="header">
-            <img src="/static/images/logo1.png" alt="智能投資羅盤 Logo" class="logo-image">
-            
-            <div class="header-text">
-                <h2>智能投資羅盤</h2>
-                <p>登入或註冊以繼續</p>
-            </div>
-        </div>
-        
-        <!-- Login Form -->
-        <div id="login-form">
-            <div class="form-group">
-                <label for="login-email">Email</label>
-                <input type="email" id="login-email" required placeholder="請輸入您的 Email">
-            </div>
-            <div class="form-group">
-                <label for="login-password">密碼</label>
-                <input type="password" id="login-password" required placeholder="••••••••">
-            </div>
-            <button class="btn" onclick="handleLogin()">→ 登入</button>
-            <a class="toggle-link" onclick="toggleForms()">還沒有帳號？點此註冊</a>
-        </div>
 
-        <!-- Registration Form -->
-        <div id="register-form">
-            <!-- 【修改點 1】暱稱輸入框已被移除 -->
-            <div class="form-group">
-                <label for="register-email">Email (將作為登入帳號)</label>
-                <input type="email" id="register-email" required placeholder="請輸入有效的 Email">
-            </div>
-            <div class="form-group">
-                <label for="register-password">密碼</label>
-                <input type="password" id="register-password" required placeholder="至少 6 個字元">
-            </div>
-            <div class="form-group">
-                <label for="register-password-confirm">確認密碼</label>
-                <input type="password" id="register-password-confirm" required placeholder="再次輸入密碼">
-            </div>
-            <button class="btn" onclick="handleRegister()">建立帳號</button>
-            <a class="toggle-link" onclick="toggleForms()">已經有帳號了？返回登入</a>
+    <h1>智能投資羅盤 - QA 技術小考</h1>
+    <div class="quiz-container">
+        <p>請回答以下關於專案技術細節的問題。完成後點擊「批改答案」按鈕查看結果與詳解。</p>
+        
+        <div id="quiz-form"></div>
+
+        <div class="button-container">
+            <button id="check-button">批改答案</button>
         </div>
         
-        <div id="message-box" class="message"></div>
+        <div id="results"></div>
+        <div id="explanations"></div>
     </div>
 
 <script>
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const messageBox = document.getElementById('message-box');
+    const quizData = [
+        // 在這裡貼上上面提供的15個問題的JSON數據
+        {
+            question: "1. 我們的後端採用 Flask 框架而非 Django，主要考量是什麼？",
+            options: [
+                "A. Flask 的安全性遠高於 Django。",
+                "B. Flask 內建了比 Django 更強大的機器學習函式庫。",
+                "C. 系統以 API 為核心，Flask 輕量、靈活的特性更適合快速開發與部署 API 服務。",
+                "D. Flask 對資料庫的支援種類比 Django 更多。"
+            ],
+            answer: 2,
+            explanation: "<strong>正確答案：C</strong>。我們的系統是一個以API為主的單頁應用(SPA)，Flask的輕量和靈活性讓我們能專注於核心演算法的整合與API開發，而無需引入Django龐大的內建功能。"
+        },
+        {
+            question: "2. 我們使用 Cloudflare Tunnel 進行部署，它解決了哪個核心安全問題？",
+            options: [
+                "A. 防止資料庫被 SQL Injection 攻擊。",
+                "B. 無需在伺服器防火牆上開放任何入站端口，杜絕了針對 IP 的直接攻擊。",
+                "C. 自動壓縮前端的 JavaScript 和 CSS 檔案。",
+                "D. 確保 Python 程式碼不會被反編譯。"
+            ],
+            answer: 1,
+            explanation: "<strong>正確答案：B</strong>。Cloudflare Tunnel 建立了一個從本地伺服器到Cloudflare的出站連接，這意味著伺服器本身無需暴露在公網上，從根本上避免了針對伺服器IP的直接網路攻擊。"
+        },
+        {
+            question: "3. 處理耗時的「策略訓練」任務時，我們採用了非同步任務佇列架構。這個架構如何改善使用者體驗？",
+            options: [
+                "A. 讓訓練過程的計算速度變得更快。",
+                "B. 後端立即回應「任務已提交」，並在背景執行運算，避免前端頁面卡死或請求超時。",
+                "C. 減少了資料庫的讀寫次數。",
+                "D. 可以讓多個使用者同時訓練同一支股票。"
+            ],
+            answer: 1,
+            explanation: "<strong>正確答案：B</strong>。核心優勢在於「非同步處理」。Web伺服器接收到請求後，將任務放入佇列就立刻回應用戶，然後由獨立的背景Worker執行計算。這確保了使用者介面(UI)始終流暢且不會因等待而超時。"
+        },
+        {
+            question: "4. `utils.py` 在我們的專案中扮演了什麼關鍵角色？",
+            options: [
+                "A. 儲存所有使用者的帳號密碼。",
+                "B. 專門用來繪製 Plotly 互動圖表。",
+                "C. 作為一個輔助工具模組，提供了資料庫連接、績效指標計算等可重用的核心函式。",
+                "D. 負責管理 Flask 伺服器的啟動與關閉。"
+            ],
+            answer: 2,
+            explanation: "<strong>正確答案：C</strong>。`utils.py` 是一個典型的工具模組，它將專案中多處需要用到的通用功能（如資料庫操作、標準化的績效計算）封裝起來，提高了程式碼的可重用性和可維護性。"
+        },
+        {
+            question: "5. 相較於傳統單目標遺傳演算法，NSGA-II 在我們專案中的最大優勢是什麼？",
+            options: [
+                "A. 它的運算速度比傳統 GA 快數倍。",
+                "B. 它能保證找到在未來市場中必定獲利的策略。",
+                "C. 它的演算法原理比傳統 GA 更簡單直觀。",
+                "D. 能夠同時優化多個衝突的目標(如報酬率與風險)，並找出一個包含多種權衡解的「帕累托前沿」。"
+            ],
+            answer: 3,
+            explanation: "<strong>正確答案：D</strong>。投資本身就是多目標的權衡。NSGA-II的核心優勢在於它不只找一個解，而是找出一組在不同目標（報酬、風險、勝率）之間取得不同平衡點的優質解，更符合真實的投資決策場景。"
+        },
+        {
+            question: "6. 我們設計了系統 A (28基因) 和系統 B (10基因) 兩種策略，主要目的是什麼？",
+            options: [
+                "A. 系統 A 專為台股設計，系統 B 專為美股設計。",
+                "B. 探索策略的「複雜度」與「穩健性」之間的權衡，A追求更高性能上限，B追求更強的穩健性。",
+                "C. 系統 A 使用趨勢策略，系統 B 使用反轉策略。",
+                "D. 因為 NSGA-II 演算法要求至少有兩種不同的基因長度。"
+            ],
+            answer: 1,
+            explanation: "<strong>正確答案：B</strong>。系統A（28基因）更複雜，有潛力找到更優的解，但也更容易過擬合。系統B（10基因）更簡潔，可解釋性強，策略可能更穩健。這是一種設計上的權衡探索。"
+        },
+        {
+            question: "7. 在 `ga_engine.py` 中，我們自定義了 `ValidGASampling` 類別，其主要用途是什麼？",
+            options: [
+                "A. 確保演算法在交叉(Crossover)過程中不會出錯。",
+                "B. 確保演算法在初始階段生成的基因都符合內在的邏輯約束(如短期均線天期<長期均線天期)。",
+                "C. 讓演算法可以支援更多種類的技術指標。",
+                "D. 用於將最終找到的最佳基因儲存到資料庫。"
+            ],
+            answer: 1,
+            explanation: "<strong>正確答案：B</strong>。如果初始族群中充滿了邏輯無效的基因，演算法的效率會非常低。`ValidGASampling` 通過篩選，保證了演算法有一個高品質、邏輯正確的起點。"
+        },
+        {
+            question: "8. 演算法如何處理在回測中完全不產生任何交易的策略？",
+            options: [
+                "A. 直接給予最高的評分，因為它沒有產生任何虧損。",
+                "B. 透過一個「交易次數懲罰因子」，大幅降低這種策略的適應度分數(Fitness)，使其被淘汰。",
+                "C. 忽略這些策略，不參與後續的演化。",
+                "D. 系統會強制讓它至少交易一次。"
+            ],
+            answer: 1,
+            explanation: "<strong>正確答案：B</strong>。一個不交易的策略是沒有意義的。我們透過軟性懲罰（降低fitness）和硬性約束（在NSGA-II中視為不可行解）兩種方式，來確保演算法會去尋找有實際交易活動的策略。"
+        },
+        {
+            question: "9. 在「智能資金配置」功能中，Gemini AI 的分析結果如何具體影響最終的配置比例？",
+            options: [
+                "A. 直接取代歷史數據分析，完全由 AI 決定最終的配置比例。",
+                "B. 僅提供文字分析報告，不影響任何數值計算。",
+                "C. 作為一個動態調整因子，根據即時新聞情緒對量化歷史回測得出的基礎分數進行加權調整。",
+                "D. 它的分析結果只用於「策略最新信號」頁面，與資金配置無關。"
+            ],
+            answer: 2,
+            explanation: "<strong>正確答案：C</strong>。AI的角色是為純量化的歷史分析提供一個前瞻性的「校準」。它將即時新聞情緒轉化為調整因子（如1.1倍或0.9倍），微調最終的配置權重，但基礎依然是量化數據。"
+        },
+        {
+            question: "10. 面對 yfinance 的數據源不穩定及台股代號格式問題，我們的 `EnhancedStockAnalyzer` 採取了什麼策略？",
+            options: [
+                "A. 當 yfinance 失敗時，改用另一個付費的數據源。",
+                "B. 如果數據載入失敗，就直接顯示錯誤，讓使用者自己修正代號。",
+                "C. 對於數字代號，會自動依序嘗試加上 `.TW` 和 `.TWO` 後綴進行查詢，直到成功為止。",
+                "D. 系統會快取所有股票過去一年的數據，完全避免即時查詢。"
+            ],
+            answer: 2,
+            explanation: "<strong>正確答案：C</strong>。這是為了提升使用者體驗和系統穩健性而設計的「智慧重試」機制。它讓使用者無需關心上市(.TW)和上櫃(.TWO)的區別，系統會自動處理。"
+        },
+        {
+            question: "11. 在`offline_ga_trainer.py`腳本中，其主要功能是什麼？",
+            options: [
+                "A. 啟動 Flask 網站伺服器。",
+                "B. 批次地、自動化地為股票清單中的每一支股票運行多次 GA/NSGA-II 演算法，並將最佳結果存入資料庫。",
+                "C. 監控伺服器狀態，如果當機則自動重啟。",
+                "D. 每日自動從 Google News 抓取新聞並進行情緒分析。"
+            ],
+            answer: 1,
+            explanation: "<strong>正確答案：B</strong>。這個腳本是我們策略庫的「生產工廠」。它可以在伺服器後台長時間運行，為大量的股票預先訓練好優質策略，供使用者在「策略庫(Explorer)」功能中快速查詢。"
+        },
+        {
+            question: "12. 我們的系統實現了 PWA (Progressive Web App)，這為使用者帶來的主要好處是什麼？",
+            options: [
+                "A. 讓網站的執行速度比原生 App 更快。",
+                "B. 可以將網站「安裝」到手機或電腦桌面，並支援基本的離線訪問。",
+                "C. 自動為使用者過濾掉所有廣告。",
+                "D. PWA 是一種後端技術，與使用者體驗無關。"
+            ],
+            answer: 1,
+            explanation: "<strong>正確答案：B</strong>。PWA的核心價值是提供「類原生應用」的體驗，包括可安裝到主畫面、全螢幕運行、以及透過Service Worker實現的離線可用性。"
+        },
+        {
+            question: "13. 在 `index_page.html` 的 CSS 中，手動回測結果的英雄式指標網格 (`hero-metric-grid`) 設計，主要目的是什麼？",
+            options: [
+                "A. 為了讓頁面看起來更美觀，沒有特殊功能意涵。",
+                "B. 這是 Plotly 圖表的預設樣式，無法修改。",
+                "C. 透過資訊層次化設計，用更大的字體和突出的位置，引導使用者首先關注「總報酬、年化報酬、最大回撤」這三個最核心的指標。",
+                "D. 為了在手機版上可以自動隱藏，節省空間。"
+            ],
+            answer: 2,
+            explanation: "<strong>正確答案：C</strong>。這是一種UI/UX設計策略，稱為「資訊層次化」。透過視覺強調，幫助使用者在複雜的數據報告中快速抓住最重要的資訊，提升資訊的傳達效率。"
+        },
+        {
+            question: "14. `service-worker.js` 這個檔案在 PWA 架構中的核心作用是什麼？",
+            options: [
+                "A. 負責處理所有與後端 API 的通訊。",
+                "B. 執行遺傳演算法的核心計算。",
+                "C. 儲存使用者的登入狀態。",
+                "D. 作為一個在背景運行的腳本，攔截網路請求並管理快取，從而實現離線可用性。"
+            ],
+            answer: 3,
+            explanation: "<strong>正確答案：D</strong>。Service Worker 就像一個位於瀏覽器和網路之間的「代理」。它可以攔截請求，並決定是從網路獲取資源還是直接從本地快取返回資源，這是實現PWA離線功能的關鍵。"
+        },
+        {
+            question: "15. 為何在回測圖表生成時，我們要同時產生一個靜態的 `.png` 圖片和一個互動的 `.html` 檔案？",
+            options: [
+                "A. `.png` 是備份，以防 `.html` 檔案損壞。",
+                "B. `.png` 檔案比 `.html` 檔案更清晰。",
+                "C. 為了提升使用者體驗：在卡片中快速載入輕量的 `.png` 預覽圖，點擊後才在彈出視窗中載入功能完整但較大的互動式 `.html` 圖表。",
+                "D. 這是 Plotly 函式庫的強制要求。"
+            ],
+            answer: 2,
+            explanation: "<strong>正確答案：C</strong>。這是一種常見的性能優化與使用者體驗設計。使用者可以快速預覽結果（PNG），只有在他們感興趣並點擊時，才需要花費額外的時間和資源載入互動圖表（HTML），做到了「按需加載」。"
+        }
+    ];
 
-    document.addEventListener('DOMContentLoaded', () => {
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-    });
+    const quizForm = document.getElementById('quiz-form');
+    const checkButton = document.getElementById('check-button');
+    const resultsContainer = document.getElementById('results');
+    const explanationsContainer = document.getElementById('explanations');
 
-    function toggleForms() {
-        const isLoginVisible = loginForm.style.display === 'block';
-        loginForm.style.display = isLoginVisible ? 'none' : 'block';
-        registerForm.style.display = isLoginVisible ? 'block' : 'none';
-        messageBox.style.display = 'none';
-    }
+    function buildQuiz() {
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+            questionBlock.id = `q-${index}`;
 
-    function showMessage(text, isError = false) {
-        messageBox.textContent = text;
-        messageBox.className = isError ? 'message error' : 'message success';
-        messageBox.style.display = 'block';
-    }
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = item.question;
+            questionBlock.appendChild(questionText);
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
 
-    async function handleLogin() {
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-        const loginUrl = window.location.search ? `/api/login${window.location.search}` : '/api/login';
-
-        const response = await fetch(loginUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            item.options.forEach((option, optionIndex) => {
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `question${index}`;
+                radio.value = optionIndex;
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(option));
+                optionsDiv.appendChild(label);
+            });
+            questionBlock.appendChild(optionsDiv);
+            quizForm.appendChild(questionBlock);
         });
-        const result = await response.json();
-        if (result.success) {
-            window.location.href = result.redirect_url || '/trainer';
-        } else {
-            showMessage(result.message, true);
-        }
     }
 
-    async function handleRegister() {
-        // 【修改點 2】直接將 username 設定為 'user'
-        const username = 'user';
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-        const password_confirm = document.getElementById('register-password-confirm').value;
+    function checkAnswers() {
+        let score = 0;
+        explanationsContainer.innerHTML = '<h2>答案詳解</h2>';
+        
+        quizData.forEach((item, index) => {
+            const questionBlock = document.getElementById(`q-${index}`);
+            questionBlock.classList.remove('correct', 'incorrect');
+            
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+            
+            if (selected) {
+                if (parseInt(selected.value) === item.answer) {
+                    score++;
+                    questionBlock.classList.add('correct');
+                } else {
+                    questionBlock.classList.add('incorrect');
+                }
+            } else {
+                questionBlock.classList.add('incorrect');
+            }
 
-        if (password !== password_confirm) {
-            showMessage('兩次輸入的密碼不一致', true);
-            return;
-        }
-        if (!email.includes('@')) {
-            showMessage('請輸入有效的 Email 格式', true);
-            return;
-        }
-
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            // 送出的請求中依然包含 username，後端無需改動
-            body: JSON.stringify({ username, email, password, password_confirm })
+            const explanation = document.createElement('div');
+            explanation.className = 'explanation';
+            explanation.innerHTML = `<strong>第 ${index + 1} 題：</strong>${item.explanation}`;
+            questionBlock.appendChild(explanation);
         });
-        const result = await response.json();
-        showMessage(result.message, !result.success);
-        if(result.success) {
-            document.getElementById('register-form').querySelectorAll('input').forEach(input => input.value = '');
-            setTimeout(() => {
-                showMessage('註冊成功！已為您切換至登入頁面，請登入。');
-                toggleForms();
-            }, 2000);
-        }
+        
+        resultsContainer.textContent = `測驗結果：${score} / ${quizData.length}`;
+        checkButton.textContent = '重新測驗';
+        checkButton.onclick = () => window.location.reload();
     }
+
+    buildQuiz();
+    checkButton.addEventListener('click', checkAnswers);
+
 </script>
+
 </body>
 </html>
